@@ -28,12 +28,18 @@
   to { transform: rotate(360deg); }
 }
 
+/* Sidebar */
+
 .Sidebar {
   height: 100vh;
 }
 
 .Sidebar .logo {
-  height: 32px;
-  background: rgba(255,255,255,.2);
-  margin: 16px;
+  padding-left: 24px;
+  padding-top: 16px;
+}
+
+.Sidebar .logo h1 {
+  color: #fff;
+
 }
