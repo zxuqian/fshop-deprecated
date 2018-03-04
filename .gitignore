@@ -24,6 +24,8 @@ hs_err_pid*
 # idea
 .idea/
 fshop.iml
+fshop.ipr
+fshop.iws
 
 # node
 node_modules/

@@ -4,7 +4,8 @@ import './App.css';
 import axios from 'axios'
 import intl from 'react-intl-universal'
 
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Link, Switch, withRouter} from 'react-router-dom'
+import { TransitionGroup, CSSTransition } from "react-transition-group"
 
 import { Layout, Menu, Icon, Row, Col, Table, Divider, Button } from 'antd';
 
@@ -39,7 +40,6 @@ class App extends Component {
 
     render() {
         return (this.state.initDone &&
-            <Router>
             <Layout>
                 <Sider className="Sidebar" breakpoint="lg"
                     collapsedWidth="0"
@@ -50,7 +50,7 @@ class App extends Component {
                     </div>
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                         <Menu.Item key="1">
-                            <Link to="/">
+                            <Link to="/product">
                                 <Icon type="user" />
                                 <span className="nav-text">{intl.get('PRODUCT')}</span>
                             </Link>
@@ -88,9 +88,15 @@ class App extends Component {
                 <Layout>
                     <Header style={{ background: '#fff', padding: 0 }} />
                     <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-                        <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
-                            <Route exact path="/" component = {ProductListing} />
-                            <Route path="/product/new" component = {NewProduct} />
+                        <div style={{ padding: 24, background: '#fff' }}>
+                            {/* <TransitionGroup>
+                                <CSSTransition key={this.props.location.key}  classNames="fade" timeout={300}>
+                                    <Switch location={this.props.location}> */}
+                                    <Route exact path="/product/" component = {ProductListing} />
+                                    <Route exact path="/product/new" component = {NewProduct} />
+                                    {/* </Switch>
+                                </CSSTransition>
+                            </TransitionGroup> */}
                         </div>
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>
@@ -98,9 +104,8 @@ class App extends Component {
                     </Footer>
                 </Layout>
             </Layout>
-            </Router>
         );
     }
 }
 
-export default App;
+export default withRouter(App);
