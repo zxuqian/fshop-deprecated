@@ -11,7 +11,7 @@ fun Route.product() {
     val productData = ProductData()
     route("/product") {
         get("/") {
-            productData.findAllProducts()
+            //productData.findAllProducts()
 
             call.respondText("This is product page")
         }

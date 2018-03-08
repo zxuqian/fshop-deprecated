@@ -48,6 +48,18 @@
             <version>${ktor.version}</version>
         </dependency>
         <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-gson</artifactId>
+            <version>${ktor.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains.kotlinx</groupId>
+            <artifactId>kotlinx-coroutines-core</artifactId>
+            <version>0.22.5</version>
+        </dependency>
+
+        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.1</version>
@@ -55,8 +67,8 @@
 
         <dependency>
             <groupId>org.mongodb</groupId>
-            <artifactId>mongodb-driver-async</artifactId>
-            <version>3.6.1</version>
+            <artifactId>mongodb-driver</artifactId>
+            <version>3.6.3</version>
         </dependency>
     </dependencies>
 

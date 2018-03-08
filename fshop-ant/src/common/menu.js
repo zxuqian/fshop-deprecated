@@ -26,6 +26,9 @@ const menuData = [{
   //   name: '添加产品',
   //   path: 'basic-list',
   // }
+  }, {
+    name: '类别管理',
+    path: 'category',
   }],
 }, {
   name: '表单页',
