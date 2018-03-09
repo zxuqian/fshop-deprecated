@@ -1,4 +1,4 @@
-package com.zxuqian.data.product
+package com.zxuqian.data
 
 import com.zxuqian.DATABASE_NAME
 import com.zxuqian.PRODUCT_COLLECTION

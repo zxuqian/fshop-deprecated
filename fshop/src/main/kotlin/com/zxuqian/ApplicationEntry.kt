@@ -4,11 +4,13 @@ import com.mongodb.MongoClient
 import com.mongodb.MongoClientOptions
 import com.mongodb.ServerAddress
 import com.mongodb.connection.ClusterSettings
-import com.zxuqian.data.product.Category
-import com.zxuqian.data.product.CategoryData
+import com.zxuqian.data.Category
+import com.zxuqian.data.CategoryData
 import io.ktor.util.generateCertificate
-import com.zxuqian.data.product.ProductData
-import com.zxuqian.route.product.product
+import com.zxuqian.data.ProductData
+import com.zxuqian.routes.category
+import com.zxuqian.routes.product
+import com.zxuqian.utils.ObjectIdSerializer
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
@@ -26,6 +28,7 @@ import io.ktor.routing.post
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.configuration.CodecRegistry
 import org.bson.codecs.pojo.PojoCodecProvider
+import org.bson.types.ObjectId
 import java.io.File
 import java.util.logging.Logger
 
@@ -46,30 +49,13 @@ fun Application.main() {
     install(CallLogging)
     install(ContentNegotiation) {
         gson {
+            registerTypeAdapter(ObjectId::class.java, ObjectIdSerializer())
             setPrettyPrinting()
         }
     }
     install(Routing) {
         product()
-
-        get("/api/category") {
-            val log = Logger.getLogger("/api/category")
-            log.info("---------------------------------------------------------------")
-            log.info(CategoryData().findAllCategories().toList().toString())
-            call.respond(CategoryData().findAllCategories().toList())
-
-        }
-
-        post("/api/category") {
-            val text = call.receiveText()
-            val log = Logger.getLogger("/api/category")
-            log.info(text + " ====================================")
-
-            CategoryData().createCategory(text)
-
-            call.respondText("Hello World4444!")
-            //CategoryData().createCategory()
-        }
+        category()
 
         get("/") {
             call.respondText("Hello World3!")

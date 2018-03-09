@@ -1,4 +1,4 @@
-package com.zxuqian.data.product
+package com.zxuqian.data
 
 import com.mongodb.client.FindIterable
 import com.zxuqian.CATEGORY_COLLECTION
