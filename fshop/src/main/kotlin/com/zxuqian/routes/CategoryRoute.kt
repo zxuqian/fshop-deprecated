@@ -1,45 +1,75 @@
 package com.zxuqian.routes
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.zxuqian.data.Category
 import com.zxuqian.data.CategoryData
+import com.zxuqian.exceptions.DataException
 import io.ktor.application.call
-import io.ktor.request.receiveText
+import io.ktor.http.HttpStatusCode
+import io.ktor.request.receive
 import io.ktor.response.respond
 import io.ktor.response.respondText
-import io.ktor.routing.Route
-import io.ktor.routing.get
-import io.ktor.routing.post
-import io.ktor.routing.route
-import jdk.nashorn.internal.runtime.regexp.joni.Config.log
-import org.slf4j.Logger
+import io.ktor.routing.*
+import org.bson.types.ObjectId
 import org.slf4j.LoggerFactory
-import java.util.logging.Level.FINE
 
 
 fun Route.category() {
+
+    val categoryData = CategoryData()
 
     route("/api") {
         route("category") {
 
             get("/") {
-                val logger = LoggerFactory.getLogger("GET /api/category")
+                val logger = LoggerFactory.getLogger("GET /category")
 
-                logger.debug("---------------------------------------------------------------")
-                logger.debug(CategoryData().findAllCategories().toList().toString())
-                call.respond(CategoryData().findAllCategories().toList())
+                call.respond(categoryData.getAll())
             }
 
             post("/") {
-                val logger = LoggerFactory.getLogger("POST /api/category")
-                val text = call.receiveText()
+                val logger = LoggerFactory.getLogger("POST /category")
 
-                logger.debug( text + " ====================================")
+                try {
+                    val category = call.receive<Category>()
 
-                CategoryData().createCategory(text)
+                    categoryData.insert(category)
 
-                call.respondText("Hello World4444!")
-                //CategoryData().createCategory()
+                    call.respond(HttpStatusCode.Created, Message(true))
+                } catch (e: DataException) {
+                    call.respond(HttpStatusCode.InternalServerError, "{ success: false }")
+                }
+            }
+
+            put("/{id}") {
+                //val id = call.parameters["id"].let { it }
+
+                try {
+                    val id = call.parameters["id"].let { ObjectId(it) }
+                    val category = call.receive<Category>()
+                    category.id = id
+                    categoryData.update(category)
+                    call.respond(HttpStatusCode.OK, Message(true))
+                } catch (e: DataException) {
+                    call.respond(HttpStatusCode.NotFound, "{ success: false }")
+                }
+
+
+            }
+
+            delete("/{id}") {
+                try {
+                    val id = call.parameters["id"]
+                    categoryData.delete(id!!)
+                    call.respond(HttpStatusCode.OK, "{ success: true }")
+                } catch (e: DataException) {
+                    call.respond(HttpStatusCode.NotFound, "{ success: false }")
+                }
+
             }
         }
 
     }
+
 }

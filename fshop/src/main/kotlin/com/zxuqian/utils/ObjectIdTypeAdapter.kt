@@ -9,7 +9,7 @@ import java.lang.reflect.Type
 
 class ObjectIdSerializer: JsonSerializer<ObjectId> {
     override fun serialize(src: ObjectId?, typeOfSrc: Type?, context: JsonSerializationContext?): JsonElement? {
-        return JsonPrimitive(src.toString())
+        return JsonPrimitive(src?.toHexString())
     }
 
 }
