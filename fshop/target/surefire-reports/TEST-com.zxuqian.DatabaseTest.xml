@@ -32,7 +32,7 @@
     <property name="os.name" value="Mac OS X"/>
     <property name="classworlds.conf" value="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3/bin/m2.conf"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="jnidispatch.path" value="/var/folders/1c/h8k22wh57gnc_n9dc0ctc9xr0000gn/T/jna-153319868/jna174773286645041962.tmp"/>
+    <property name="jnidispatch.path" value="/var/folders/1c/h8k22wh57gnc_n9dc0ctc9xr0000gn/T/jna-153319868/jna17515657856295296.tmp"/>
     <property name="java.library.path" value="/Users/zxuqian/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>

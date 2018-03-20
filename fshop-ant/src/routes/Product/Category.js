@@ -47,6 +47,16 @@ export default class Category extends PureComponent {
     });
   }
 
+  deleteCategory = (id, e) => {
+    e.preventDefault();
+    this.props.dispatch({
+      type: 'category/deleteCategory',
+      payload: {
+        id,
+      },
+    });
+  }
+
   renderTreeNodes = (categories) => {
     return categories.map((category) => {
       return (
@@ -54,7 +64,7 @@ export default class Category extends PureComponent {
           title={
             <React.Fragment>
               <Input defaultValue={category.name} style={{ border: 'none', width: 'auto' }} size="small" onBlur={this.updateCategory.bind(this, category.id)} />
-              <a>删除</a>
+              <a onClick={this.deleteCategory.bind(this, category.id)}>删除</a>
             </React.Fragment>}
           key={category.id}
         />

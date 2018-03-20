@@ -23,3 +23,9 @@ export async function updateCategory(params) {
     },
   });
 }
+
+export async function deleteCategory(params) {
+  return request(`${config.remote}/api/category/${params.id}`, {
+    method: 'DELETE', // See request.js, added support for DELETE
+  });
+}

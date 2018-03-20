@@ -38,7 +38,7 @@ fun Route.category() {
 
                     call.respond(HttpStatusCode.Created, Message(true))
                 } catch (e: DataException) {
-                    call.respond(HttpStatusCode.InternalServerError, "{ success: false }")
+                    call.respond(HttpStatusCode.InternalServerError, Message(false))
                 }
             }
 
@@ -52,7 +52,7 @@ fun Route.category() {
                     categoryData.update(category)
                     call.respond(HttpStatusCode.OK, Message(true))
                 } catch (e: DataException) {
-                    call.respond(HttpStatusCode.NotFound, "{ success: false }")
+                    call.respond(HttpStatusCode.NotFound, Message(false))
                 }
 
 
@@ -62,9 +62,9 @@ fun Route.category() {
                 try {
                     val id = call.parameters["id"]
                     categoryData.delete(id!!)
-                    call.respond(HttpStatusCode.OK, "{ success: true }")
+                    call.respond(HttpStatusCode.OK, Message(true))
                 } catch (e: DataException) {
-                    call.respond(HttpStatusCode.NotFound, "{ success: false }")
+                    call.respond(HttpStatusCode.NotFound, Message(false))
                 }
 
             }

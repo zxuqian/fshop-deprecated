@@ -31,6 +31,18 @@ export default {
         message.success('修改成功');
       }
     },
+    *deleteCategory({ payload }, { call, put }) {
+      const hide = message.loading('删除中...');
+      const response = yield call(categoryService.deleteCategory, payload);
+      if (response.success) {
+        hide();
+        message.success('删除成功');
+        yield put({
+          type: 'delete',
+          payload: payload.id,
+        });
+      }
+    },
     *fetch(_, { call, put }) {
       const response = yield call(categoryService.getAllCategories);
       yield put({
@@ -45,6 +57,12 @@ export default {
       return {
         ...state,
         categories: action.payload,
+      };
+    },
+    delete(state, action) {
+      return {
+        ...state,
+        categories: state.categories.filter(value => value.id !== action.payload),
       };
     },
   },

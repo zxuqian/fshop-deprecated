@@ -47,7 +47,7 @@ export default function request(url, options) {
     credentials: 'include',
   };
   const newOptions = { ...defaultOptions, ...options };
-  if (newOptions.method === 'POST' || newOptions.method === 'PUT') {
+  if (newOptions.method === 'POST' || newOptions.method === 'PUT' || newOptions.method === 'DELETE') { // Updated by Xuqian, Support DELETE
     if (!(newOptions.body instanceof FormData)) {
       newOptions.headers = {
         Accept: 'application/json',
@@ -68,7 +68,8 @@ export default function request(url, options) {
   return fetch(url, newOptions)
     .then(checkStatus)
     .then((response) => {
-      if (newOptions.method === 'DELETE' || response.status === 204) {
+      // Updated by Xuqian, even in delete request, convert string to json
+      if (/* newOptions.method === 'DELETE' || */response.status === 204) {
         return response.text();
       }
       return response.json();
