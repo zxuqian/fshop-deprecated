@@ -36,9 +36,11 @@ fun Route.category() {
 
                     categoryData.insert(category)
 
-                    call.respond(HttpStatusCode.Created, Message(true))
+                    call.respond(HttpStatusCode.Created, Message(
+                            true,
+                            categoryData.getById(category.id.toHexString())))
                 } catch (e: DataException) {
-                    call.respond(HttpStatusCode.InternalServerError, Message(false))
+                    call.respond(HttpStatusCode.InternalServerError, Message<Category>(false))
                 }
             }
 
@@ -50,9 +52,9 @@ fun Route.category() {
                     val category = call.receive<Category>()
                     category.id = id
                     categoryData.update(category)
-                    call.respond(HttpStatusCode.OK, Message(true))
+                    call.respond(HttpStatusCode.OK, Message(true, categoryData.getById(id.toHexString())))
                 } catch (e: DataException) {
-                    call.respond(HttpStatusCode.NotFound, Message(false))
+                    call.respond(HttpStatusCode.NotFound, Message<Category>(false))
                 }
 
 
@@ -62,9 +64,9 @@ fun Route.category() {
                 try {
                     val id = call.parameters["id"]
                     categoryData.delete(id!!)
-                    call.respond(HttpStatusCode.OK, Message(true))
+                    call.respond(HttpStatusCode.OK, Message<Category>(true))
                 } catch (e: DataException) {
-                    call.respond(HttpStatusCode.NotFound, Message(false))
+                    call.respond(HttpStatusCode.NotFound, Message<Category>(false))
                 }
 
             }

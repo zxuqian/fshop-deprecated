@@ -1,3 +1,3 @@
 package com.zxuqian.routes
 
-class Message(var success: Boolean = false)
+data class Message<T>(var success: Boolean = false, var obj:T? = null)

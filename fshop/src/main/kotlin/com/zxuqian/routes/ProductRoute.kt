@@ -31,9 +31,9 @@ fun Route.product() {
                     val product = call.receive<Product>()
                     productData.insert(product)
 
-                    call.respond(HttpStatusCode.Created, Message(true))
+                    call.respond(HttpStatusCode.Created, Message<Product>(true))
                 } catch (e: DataException) {
-                    call.respond(HttpStatusCode.InternalServerError, Message(false))
+                    call.respond(HttpStatusCode.InternalServerError, Message<Product>(false))
                 }
 
 
@@ -46,9 +46,9 @@ fun Route.product() {
                     product.id = id
                     productData.update(product)
 
-                    call.respond(HttpStatusCode.Created, Message(true))
+                    call.respond(HttpStatusCode.Created, Message<Product>(true))
                 } catch (e: DataException) {
-                    call.respond(HttpStatusCode.NotFound, Message(false))
+                    call.respond(HttpStatusCode.NotFound, Message<Product>(false))
                 }
             }
 
@@ -56,9 +56,9 @@ fun Route.product() {
                 try {
                     val id = call.parameters["id"]
                     productData.delete(id!!)
-                    call.respond(HttpStatusCode.OK, Message(true))
+                    call.respond(HttpStatusCode.OK, Message<Product>(true))
                 } catch (e: DataException) {
-                    call.respond(HttpStatusCode.NotFound, Message(false))
+                    call.respond(HttpStatusCode.NotFound, Message<Product>(false))
                 }
             }
         }

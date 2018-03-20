@@ -19,9 +19,17 @@ export default {
   // },
 
   effects: {
-    *submitAddCategoryForm({ payload }, { call }) {
-      yield call(categoryService.addNewCategory, payload);
-      message.success('提交成功');
+    *submitAddCategoryForm({ payload }, { call, put }) {
+      const hide = message.loading('添加中...');
+      const response = yield call(categoryService.addNewCategory, payload);
+      if (response.success) {
+        yield put({
+          type: 'add',
+          payload: response.obj,
+        });
+        hide();
+        message.success('提交成功');
+      }
     },
     *updateCategory({ payload }, { call }) {
       const hide = message.loading('修改中...');
@@ -57,6 +65,14 @@ export default {
       return {
         ...state,
         categories: action.payload,
+      };
+    },
+    add(state, action) {
+      if (action.payload) {
+        state.categories.push(action.payload);
+      }
+      return {
+        ...state,
       };
     },
     delete(state, action) {

@@ -23,9 +23,9 @@ class WebServiceTest {
 //            assertFalse(requestHandled)
 //        }
 //
-//        with(handleRequest(HttpMethod.Get, "/api/category") { addHeader("accept", "application/json")}) {
-//            println(response.content)
-//        }
+        with(handleRequest(HttpMethod.Get, "/api/category") { addHeader("accept", "application/json")}) {
+            println(response.content)
+        }
 //
 //        with(handleRequest(HttpMethod.Post, "/api/category") {
 //            addHeader("content-type", "application/json")
